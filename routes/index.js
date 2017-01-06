@@ -1,5 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
+
+
 //引入加密模块
 var crypto = require('crypto');
 
@@ -14,7 +16,7 @@ var secret='a12345678';
 
 /*Set routerParam*/
 router.param('_id', function (req, res, next, id) {
-    console.log('CALLED ONLY ONCE');
+    console.log('CALLED ONLY ONCE'+id);
     next();
 });
 
@@ -154,6 +156,7 @@ router.post('/post', function (req, res, next) {
         console.log('文章发表成功！');
         return res.redirect('/');
     });
+
 });
 
 router.get('/search', function(req, res, next) {
@@ -201,7 +204,7 @@ router.post('/edit/:_id', function(req, res, next) {
             return res.redirect('back');
         }
         console.log('文章编辑成功！');
-        return res.redirect('/u/' + req.session.user.username);
+        return res.redirect('/search');
     });
 });
 

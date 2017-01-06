@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://'+mongoDBConfig.user+':'+mongoDBConfig.password+'@'+mongoDBConfig.host+':'+mongoDBConfig.port+'/'+mongoDBConfig.database+'?authSource='+mongoDBConfig.authSource, {native_parser: true});
 // mongoose.connect('mongodb://localhost:18088/datas');
@@ -44,7 +45,20 @@ app.use(session({
     saveUninitialized: true
 }));
 
+
+/*用户登陆身份验证*/
+app.use('/', function(req, res, next) {
+    if(req.session.user||req.originalUrl=='/'||req.originalUrl=='/login'||req.originalUrl=='/reg'){
+        next();
+    }else{
+        return res.redirect('/login');
+    }
+});
+
+/*用户使用层*/
 app.use('/', index);
+
+/*用户登陆信息层*/
 app.use('/users', users);
 
 // catch 404 and forward to error handler

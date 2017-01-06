@@ -1,1 +1,28 @@
-<%=title%>
+<html>
+<head>
+</head>
+<body>
+<form action="#" method="post">
+    <table>
+        <caption>编辑 id:<input type="text" name="_id" value="<%= art._id %>" disabled></caption>
+        <tr>
+            <th>title</th>
+            <th>tag</th>
+            <th>content</th>
+            <th>createTime</th>
+            <th>author</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="title" value="<%= art.title %>"></td>
+            <td><input type="text" name="tag" value="<%= art.tag %>"></td>
+            <td><input type="text" name="content" value="<%= art.content %>"></td>
+            <td><input type="text" name="createTime" value="<%= art.createTime %>"></td>
+            <td><input type="text" name="author" value="<%= art.author %>"></td>
+        </tr>
+        <tr>
+            <td><input type="submit"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
