@@ -1,11 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-
 var model = require('../models/model');
 var User = model.User;
 var Article = model.Article;
-
 
 var crypto = require('crypto');
 
@@ -20,7 +18,6 @@ router.param('_id', function (req, res, next, id) {
     console.log('id   ' + id);
     next();
 });
-
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {

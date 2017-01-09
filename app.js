@@ -11,6 +11,7 @@ var MongoStore = require('connect-mongo')(session);
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var article = require('./routes/article');
 
 var app = express();
 
@@ -60,6 +61,9 @@ app.use('/', index);
 
 /*用户登陆信息层*/
 app.use('/users', users);
+
+/*文章管理层*/
+app.use('/article', article);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
