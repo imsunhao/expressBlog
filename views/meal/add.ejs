@@ -1,0 +1,118 @@
+<%- include public/header.ejs %>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-addon">总金额</span>
+            <input type="text" class="form-control balaba" placeholder="总金额（未减去优惠）" name="sum">
+            <span class="input-group-addon">元</span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-addon">总杂费</span>
+            <input type="text" class="form-control balaba" placeholder="杂费" name="other">
+            <span class="input-group-addon">元</span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-addon">总优惠金额</span>
+            <input type="text" class="form-control balaba" placeholder="优惠金额" name="_sum">
+            <span class="input-group-addon">元</span>
+        </div>
+    </div>
+    <ul class="col-md-12" id="list">
+        <% lists.forEach(function (list, index) { %>
+        <li>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="<%= list._id %>">
+                    <%= list.username %>
+                </label>
+            </div>
+            <div class="disabled">
+                <div class="input-group">
+                    <span class="input-group-addon">详细</span>
+                    <input type="text" class="form-control" placeholder="都买什么了?" name="<%= list._id %>-detial"
+                           data-id="<%= list._id %>">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">消费</span>
+                    <input type="text" class="form-control" placeholder="花了多少钱" name="<%= list._id %>-sum"
+                           data-id="<%= list._id %>">
+                    <span class="input-group-addon">元</span>
+                </div>
+            </div>
+        </li>
+        <% }) %>
+    </ul>
+    <div class="col-md-12" style="margin-top: 20px">
+        <button class="btn btn-block submit">submit</button>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var $list = $("#list");
+        var people = [];
+        $list.find("input[type='checkbox']").on("change", function () {
+            if (this.checked) {
+                peopleControl(1, this.value);
+                $(this).parent().parent().siblings().addClass('able');
+            } else {
+                peopleControl(0, this.value);
+                $(this).parent().parent().siblings().removeClass('able');
+            }
+        });
+        $list.find("input[type='text']").on("blur", function () {
+            old($(this).attr('data-id'));
+        });
+        $('.submit').on("click", function (e) {
+            var $balal = $('.balaba');
+            $.ajax({
+                type: "POST",
+                url: "add",
+                data: {
+                    sum: $balal.eq(0).val(),
+                    other: $balal.eq(1).val(),
+                    _sum: $balal.eq(2).val(),
+                    people: people
+                },
+                success: function (data, status) {
+                    if (status == "success") {
+                        window.location.href = data.url;
+                    }
+                }
+            });
+        });
+        function peopleControl(boolean, id) {
+            var i = 0;
+            if (boolean) {
+                people.push({_id: id, datials: "", sum: ""});
+                old(id);
+            } else {
+                for (i = 0; i < people.length; i++) {
+                    if (people[i]._id == id) {
+                        people.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+
+        function old(id) {
+            var detial = 'input[name="' + id + '-detial"]';
+            var sum = 'input[name="' + id + '-sum"]';
+            for (var i = 0; i < people.length; i++) {
+                if (people[i]._id == id) {
+                    people[i].datials = $(detial).val();
+                    people[i].sum = $(sum).val();
+                    break;
+                }
+            }
+        }
+    });
+</script>
+
+<%- include public/footer.ejs %>

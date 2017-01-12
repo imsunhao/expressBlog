@@ -1,0 +1,26 @@
+<%- include public/header.ejs %>
+<form class="col-md-12" action="./addUser" method="post">
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-addon">用户名</span>
+            <input type="text" class="form-control balaba" placeholder="用户名" name="username">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-addon">密码</span>
+            <input type="password" class="form-control balaba" placeholder="密码" name="password">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-addon">总余额</span>
+            <input type="text" class="form-control balaba" placeholder="余额" name="sum">
+            <span class="input-group-addon">元</span>
+        </div>
+    </div>
+    <div class="col-md-12" style="margin-top: 20px">
+        <button class="btn btn-block submit">submit</button>
+    </div>
+</form>
+<%- include public/footer.ejs %>

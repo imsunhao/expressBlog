@@ -1,10 +1,8 @@
 var express = require('express');
 var mongoose = require('mongoose');
 
-
 //引入加密模块
 var crypto = require('crypto');
-
 var model = require('../models/model');
 
 var User = model.User;
@@ -24,25 +22,6 @@ router.param('_id', function (req, res, next, id) {
 router.get('/', function (req, res, next) {
     res.render('index', {
         title: '主页',
-        arts: [{
-            title: 'nodeJS入门',
-            tags: 'nodeJS',
-            author: 'imsunhao',
-            createTime: '2016-12-27 10:45:01',
-            content: '巴拉巴拉'
-        }, {
-            title: 'nodeJS入门',
-            tags: 'nodeJS',
-            author: 'imsunhao',
-            createTime: '2016-12-27 10:45:01',
-            content: '巴拉巴拉'
-        }, {
-            title: 'nodeJS入门',
-            tags: 'nodeJS',
-            author: 'imsunhao',
-            createTime: '2016-12-27 10:45:01',
-            content: '巴拉巴拉'
-        }],
         user: req.session.user
     });
 });

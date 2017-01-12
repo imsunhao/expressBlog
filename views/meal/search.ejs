@@ -1,0 +1,22 @@
+<%- include public/header.ejs %>
+
+<table class="table">
+    <caption>查询结构</caption>
+    <tr>
+        <th>用户名</th>
+        <th>余额</th>
+        <th>上次吃午饭下订单的时间</th>
+        <th>查看用户消费详情</th>
+    </tr>
+    <% users.forEach(function(user) { %>
+    <tr>
+        <td><%= user.username %></td>
+        <td><%= user.sum %></td>
+        <td><%= user.changeTime %></td>
+        <td><a href="/meal/mealDetails/<%= user._id %>">消费详情</a></td>
+    </tr>
+    <% }) %>
+</table>
+
+<%- include public/footer.ejs %>
+

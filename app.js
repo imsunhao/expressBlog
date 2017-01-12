@@ -14,6 +14,7 @@ var MongoStore = require('connect-mongo')(session);
 var index = require('./routes/index');
 var users = require('./routes/users');
 var article = require('./routes/article');
+var meal = require('./routes/meal');
 
 var app = express();
 
@@ -34,7 +35,6 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // logger :  https://github.com/expressjs/morgan
-
 app.use(logger('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -50,7 +50,7 @@ mongoose.connection.on('error', console.error.bind(console, '连接数据库失�
 app.use(session({
     key: 'session',
     secret: 'keboard cat',
-    cookie: {maxAge: 1000 * 60 * 60 * 24},//1day
+    cookie: {maxAge: 1000 * 60 * 60 },//1小时 //1k (s) * 60(min) *60 (hover) *24(day)
     store: new MongoStore({
         db: 'datas',
         mongooseConnection: mongoose.connection
@@ -59,6 +59,9 @@ app.use(session({
     saveUninitialized: true
 }));
 
+
+/*吃饭系统*/
+app.use('/meal', meal);
 
 /*用户登陆身份验证*/
 app.use('/', function(req, res, next) {
