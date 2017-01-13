@@ -70,7 +70,7 @@ router.post('/add', function (req, res, next) {
             });
         });
     });
-    return res.json({state: 200,url:"/meal"});
+    return res.json({state: 200,url:"/meal/searchOlder"});
 });
 
 router.get('/addUser', function (req, res, next) {
@@ -100,6 +100,22 @@ router.get('/search', function (req, res, next) {
         return res.render('meal/search', {
             title: "查看所有用户",
             users: doc
+        });
+    });
+});
+
+router.get('/searchOlder', function (req, res, next) {
+    MealUser.find({},function (err,users) {
+        var peoples=[];
+        users.forEach(function (user) {
+            peoples[user._id]=user.username;
+        });
+        MealOlder.find({}, function (err, olders) {
+            return res.render('meal/searchOlder', {
+                title: "查看所有订单",
+                olders: olders,
+                peoples:peoples
+            });
         });
     });
 });
