@@ -48,8 +48,8 @@ router.post('/add', function (req, res, next) {
         _sum: req.body._sum,
         people: people
     });
-    var pirce = (newMealOlder.other - newMealOlder._sum) / people.length;
-    console.log(pirce);
+    var bili = parseFloat((parseFloat(newMealOlder.sum)-parseFloat(newMealOlder._sum)+parseFloat(newMealOlder.other)) / parseFloat(newMealOlder.sum));
+    var otherPirce = (newMealOlder.other) / people.length;
     newMealOlder.save(function (err, doc) {
         if (err) {
             console.log(err);
@@ -60,8 +60,7 @@ router.post('/add', function (req, res, next) {
     people.forEach(function (p) {
         MealUser.findOne({_id: p._id},function (err,u) {
             MealUser.update({_id: p._id}, {
-                sum: (parseFloat(u._doc.sum) - parseFloat(p.sum) - parseFloat(pirce)),
-                
+                sum: (parseFloat(u._doc.sum) - (parseFloat(p.sum) + parseFloat(otherPirce))*bili),
                 changeTime: Date.now()
             }, function (err, doc) {
                 if (err) {

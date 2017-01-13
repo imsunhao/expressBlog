@@ -15,10 +15,15 @@
         <th>您的余额</th>
         <th>订餐时间</th>
     </tr>
-    <% var d = "";
+    <%
+        var d = "",
+                bili=0,
+                otherPirce=0,
+                people={};
     olders.forEach(function(older) {
         d = new Date(older.createTime);
-        var people = {};
+        bili = (parseFloat(older.sum)-parseFloat(older._sum)+parseFloat(older.other)) / parseFloat(older.sum);
+        otherPirce = (older.other) / older.people.length;
     for (var i = 0; i < older.people.length; i++) {
     if (older.people[i]._id == id) {
         people = {
@@ -35,7 +40,7 @@
         <td><%= parseFloat(older._sum).toFixed(2) %></td>
         <td><%= people.datials %></td>
         <td><%= parseFloat(people.sum).toFixed(2) %></td>
-        <% var s = (parseFloat(people.sum) + (parseFloat(older.other) - parseFloat(older._sum)) / older.people.length) %>
+        <%var s = (parseFloat(people.sum) + parseFloat(otherPirce))*bili  %>
         <td><%= s.toFixed(2) %></td>
         <td><%= parseFloat(people.yue).toFixed(2) %></td>
         <td><%= (parseFloat(people.yue) - parseFloat(s)).toFixed(2) %></td>

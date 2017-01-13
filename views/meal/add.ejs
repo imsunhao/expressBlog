@@ -4,21 +4,21 @@
     <div class="col-md-4">
         <div class="input-group">
             <span class="input-group-addon">总金额</span>
-            <input type="text" class="form-control balaba" placeholder="总金额（未减去优惠）" name="sum">
+            <input type="number" class="form-control balaba" placeholder="总金额（未减去优惠）" name="sum" value="0" disabled>
             <span class="input-group-addon">元</span>
         </div>
     </div>
     <div class="col-md-4">
         <div class="input-group">
             <span class="input-group-addon">总杂费</span>
-            <input type="text" class="form-control balaba" placeholder="杂费" name="other">
+            <input type="number" class="form-control balaba" placeholder="杂费" name="other">
             <span class="input-group-addon">元</span>
         </div>
     </div>
     <div class="col-md-4">
         <div class="input-group">
             <span class="input-group-addon">总优惠金额</span>
-            <input type="text" class="form-control balaba" placeholder="优惠金额" name="_sum">
+            <input type="number" class="form-control balaba" placeholder="优惠金额" name="_sum">
             <span class="input-group-addon">元</span>
         </div>
     </div>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">消费</span>
-                    <input type="text" class="form-control" placeholder="花了多少钱" name="<%= list._id %>-sum"
+                    <input type="number" class="form-control" placeholder="花了多少钱" name="<%= list._id %>-sum"
                            data-id="<%= list._id %>">
                     <span class="input-group-addon">元</span>
                 </div>
@@ -65,16 +65,20 @@
                 $(this).parent().parent().siblings().removeClass('able');
             }
         });
-        $list.find("input[type='text']").on("blur", function () {
+        $list.find("input[type='number']").on("blur", function () {
             old($(this).attr('data-id'));
         });
         $('.submit').on("click", function (e) {
             var $balal = $('.balaba');
+            var sum=0;
+            for(var i=0;i<people.length;i++){
+                sum+=people[i].sum;
+            }
             $.ajax({
                 type: "POST",
                 url: "add",
                 data: {
-                    sum: $balal.eq(0).val(),
+                    sum: sum,
                     other: $balal.eq(1).val(),
                     _sum: $balal.eq(2).val(),
                     people: people
