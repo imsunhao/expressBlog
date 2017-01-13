@@ -33,7 +33,8 @@ router.post('/add', function (req, res, next) {
             jsonstep = {
                 datials: req.body["people[" + i + "][datials]"],
                 sum: req.body["people[" + i + "][sum]"],
-                _id: req.body["people[" + i + "][_id]"]
+                _id: req.body["people[" + i + "][_id]"],
+                yue:req.body["people[" + i + "][yue]"]
             };
             people.push(jsonstep);
         } else {

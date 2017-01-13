@@ -27,7 +27,7 @@
         <li>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="<%= list._id %>">
+                    <input type="checkbox" value="<%= list._id %>" data-yue="<%=list.sum%>">
                     <%= list.username %>
                 </label>
             </div>
@@ -58,10 +58,10 @@
         var people = [];
         $list.find("input[type='checkbox']").on("change", function () {
             if (this.checked) {
-                peopleControl(1, this.value);
+                peopleControl(1, this.value,$(this).attr('data-yue'));
                 $(this).parent().parent().siblings().addClass('able');
             } else {
-                peopleControl(0, this.value);
+                peopleControl(0, this.value,$(this).attr('data-yue'));
                 $(this).parent().parent().siblings().removeClass('able');
             }
         });
@@ -86,10 +86,10 @@
                 }
             });
         });
-        function peopleControl(boolean, id) {
+        function peopleControl(boolean, id, yue) {
             var i = 0;
             if (boolean) {
-                people.push({_id: id, datials: "", sum: ""});
+                people.push({_id: id, yue: yue, datials: "", sum: ""});
                 old(id);
             } else {
                 for (i = 0; i < people.length; i++) {
