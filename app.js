@@ -47,6 +47,12 @@ mongoose.connect('mongodb://'+mongoDBConfig.user+':'+mongoDBConfig.password+'@'+
 // mongoose.connect('mongodb://localhost:18088/datas');
 
 mongoose.connection.on('error', console.error.bind(console, '连接数据库失败'));
+
+
+/*吃饭系统*/
+app.use('/meal', meal);
+
+/*session*/
 app.use(session({
     key: 'session',
     secret: 'keboard cat',
@@ -58,19 +64,6 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
-
-/*吃饭系统*/
-app.use('/meal', meal);
-
-/*用户登陆身份验证*/
-app.use('/', function(req, res, next) {
-    if(req.session.user||req.originalUrl=='/'||req.originalUrl=='/login'||req.originalUrl=='/reg'){
-        next();
-    }else{
-        return res.redirect('/login');
-    }
-});
 
 /*用户使用层*/
 app.use('/', index);
