@@ -22,7 +22,7 @@
                 people={};
     olders.forEach(function(older) {
         d = new Date(older.createTime);
-        bili = (parseFloat(older.sum)-parseFloat(older._sum)+parseFloat(older.other)) / parseFloat(older.sum);
+        var bili = parseFloat((parseFloat(older.sum)-parseFloat(older._sum)+parseFloat(older.other)) / (parseFloat(older.sum)+parseFloat(older.other)));
         otherPirce = (older.other) / older.people.length;
     for (var i = 0; i < older.people.length; i++) {
     if (older.people[i]._id == id) {

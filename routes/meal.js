@@ -48,7 +48,7 @@ router.post('/add', function (req, res, next) {
         _sum: req.body._sum,
         people: people
     });
-    var bili = parseFloat((parseFloat(newMealOlder.sum)-parseFloat(newMealOlder._sum)+parseFloat(newMealOlder.other)) / parseFloat(newMealOlder.sum));
+    var bili = parseFloat((parseFloat(newMealOlder.sum)-parseFloat(newMealOlder._sum)+parseFloat(newMealOlder.other)) / (parseFloat(newMealOlder.sum)+parseFloat(newMealOlder.other)));
     var otherPirce = (newMealOlder.other) / people.length;
     newMealOlder.save(function (err, doc) {
         if (err) {
