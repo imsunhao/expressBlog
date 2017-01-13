@@ -15,7 +15,7 @@
     %>
     <tr>
         <td><%= user.username %></td>
-        <td><%= user.sum %></td>
+        <td><%= parseFloat(user.sum).toFixed(2) %></td>
         <td><%= (d.getFullYear() + " 年 " + (d.getMonth() + 1) + " 月 " + d.getDate() + " 日") %></td>
         <td><a href="/meal/mealDetails/<%= user._id %>">消费详情</a></td>
     </tr>

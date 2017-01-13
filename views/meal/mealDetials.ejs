@@ -30,15 +30,15 @@
     %>
     <tr>
         <td><%= older._id %></td>
-        <td><%= older.sum %></td>
-        <td><%= older.other %></td>
-        <td><%= older._sum %></td>
+        <td><%= parseFloat(older.sum).toFixed(2) %></td>
+        <td><%= parseFloat(older.other).toFixed(2) %></td>
+        <td><%= parseFloat(older._sum).toFixed(2) %></td>
         <td><%= people.datials %></td>
-        <td><%= people.sum %></td>
+        <td><%= parseFloat(people.sum).toFixed(2) %></td>
         <% var s = (parseFloat(people.sum) + (parseFloat(older.other) - parseFloat(older._sum)) / older.people.length) %>
-        <td><%= s %></td>
-        <td><%= people.yue|0 %></td>
-        <td><%= (parseFloat(people.yue|0) - parseFloat(s)) %></td>
+        <td><%= s.toFixed(2) %></td>
+        <td><%= parseFloat(people.yue).toFixed(2) %></td>
+        <td><%= (parseFloat(people.yue) - parseFloat(s)).toFixed(2) %></td>
         <td><%= (d.getFullYear() + " 年 " + (d.getMonth() + 1) + " 月 " + d.getDate() + " 日") %></td>
     </tr>
     <%

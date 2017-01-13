@@ -29,7 +29,7 @@ router.post('/add', function (req, res, next) {
     var people = [];
     var jsonstep = {};
     while (true) {
-        if (req.body["people[" + i + "][datials]"]) {
+        if (req.body["people[" + i + "][sum]"]) {
             jsonstep = {
                 datials: req.body["people[" + i + "][datials]"],
                 sum: req.body["people[" + i + "][sum]"],

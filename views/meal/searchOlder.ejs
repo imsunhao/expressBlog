@@ -17,9 +17,9 @@
     %>
     <tr>
         <td><%= older._id %></td>
-        <td><%= older.sum %></td>
-        <td><%= older.other %></td>
-        <td><%= older._sum %></td>
+        <td><%= parseFloat(older.sum).toFixed(2) %></td>
+        <td><%= parseFloat(older.other).toFixed(2) %></td>
+        <td><%= parseFloat(older._sum).toFixed(2) %></td>
         <td>
             <% older.people.forEach(function (people) { %>
             <a style="float: left" href='/meal/mealDetails/<%= people._id %>?search=<%= older._id %>'><%= peoples[people._id] %></a>
