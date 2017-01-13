@@ -35,10 +35,10 @@
         <td><%= older._sum %></td>
         <td><%= people.datials %></td>
         <td><%= people.sum %></td>
-        <% var s = (parseInt(people.sum) + (parseInt(older.other) - parseInt(older._sum)) / older.people.length) %>
+        <% var s = (parseFloat(people.sum) + (parseFloat(older.other) - parseFloat(older._sum)) / older.people.length) %>
         <td><%= s %></td>
         <td><%= people.yue|0 %></td>
-        <td><%= (parseInt(people.yue|0) - parseInt(s)) %></td>
+        <td><%= (parseFloat(people.yue|0) - parseFloat(s)) %></td>
         <td><%= (d.getFullYear() + " 年 " + (d.getMonth() + 1) + " 月 " + d.getDate() + " 日") %></td>
     </tr>
     <%

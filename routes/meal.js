@@ -60,7 +60,8 @@ router.post('/add', function (req, res, next) {
     people.forEach(function (p) {
         MealUser.findOne({_id: p._id},function (err,u) {
             MealUser.update({_id: p._id}, {
-                sum: (parseInt(u._doc.sum) - parseInt(p.sum) - parseInt(pirce)),
+                sum: (parseFloat(u._doc.sum) - parseFloat(p.sum) - parseFloat(pirce)),
+                
                 changeTime: Date.now()
             }, function (err, doc) {
                 if (err) {
