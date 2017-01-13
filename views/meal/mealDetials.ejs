@@ -1,0 +1,55 @@
+<%- include public/header.ejs %>
+
+<table class="table table-striped">
+    <caption>查询结果</caption>
+    <% if(olders.length > 0){ %>
+    <tr>
+        <th>订单编号(不是饿了吗的订单)</th>
+        <th>总订单消费金额</th>
+        <th>总杂费</th>
+        <th>总优惠</th>
+        <th>消费用途</th>
+        <th>您的消费总额</th>
+        <th>您的消费实际金额</th>
+        <th>上次消费余额剩余</th>
+        <th>您的余额</th>
+        <th>订餐时间</th>
+    </tr>
+    <% var d = "";
+    olders.forEach(function(older) {
+        d = new Date(older.createTime);
+        var people = {};
+    for (var i = 0; i < older.people.length; i++) {
+    if (older.people[i]._id == id) {
+        people = {
+            _id: older.people[i]._id,
+            yue: older.people[i].yue,
+            datials: older.people[i].datials,
+            sum: older.people[i].sum
+        }
+    %>
+    <tr>
+        <td><%= older._id %></td>
+        <td><%= older.sum %></td>
+        <td><%= older.other %></td>
+        <td><%= older._sum %></td>
+        <td><%= people.datials %></td>
+        <td><%= people.sum %></td>
+        <% var s = (parseInt(people.sum) + (parseInt(older.other) - parseInt(older._sum)) / older.people.length) %>
+        <td><%= s %></td>
+        <td><%= people.yue|0 %></td>
+        <td><%= (parseInt(people.yue|0) - parseInt(s)) %></td>
+        <td><%= (d.getFullYear() + " 年 " + (d.getMonth() + 1) + " 月 " + d.getDate() + " 日") %></td>
+    </tr>
+    <%
+        break;
+    }
+    }})}else{ %>
+    <tr>
+        <td>抱歉用户暂无消费详情</td>
+        <td><a href="/meal/add">去下订单</a></td>
+    </tr>
+    <% } %>
+</table>
+
+<%- include public/footer.ejs %>

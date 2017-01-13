@@ -121,4 +121,14 @@ router.get('/searchOlder', function (req, res, next) {
     });
 });
 
+router.get('/mealDetails/:_id', function (req, res, next) {
+    MealOlder.find({}, function (err, olders) {
+        return res.render('meal/mealDetials', {
+            title: "查看所有订单",
+            olders: olders,
+            id:req.params._id
+        });
+    });
+});
+
 module.exports = router;
