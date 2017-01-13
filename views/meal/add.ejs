@@ -72,7 +72,7 @@
             var $balal = $('.balaba');
             var sum=0;
             for(var i=0;i<people.length;i++){
-                sum+=people[i].sum;
+                sum+=parseFloat(people[i].sum);
             }
             $.ajax({
                 type: "POST",
