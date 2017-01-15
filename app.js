@@ -49,14 +49,12 @@ mongoose.connect('mongodb://'+mongoDBConfig.user+':'+mongoDBConfig.password+'@'+
 mongoose.connection.on('error', console.error.bind(console, '连接数据库失败'));
 
 
-/*吃饭系统*/
-app.use('/meal', meal);
 
 /*session*/
 app.use(session({
     key: 'session',
     secret: 'keboard cat',
-    cookie: {maxAge: 1000 * 60 * 60 },//1小时 //1k (s) * 60(min) *60 (hover) *24(day)
+    cookie: {maxAge: 1000 * 60 * 60 * 24 },//1小时 //1k (s) * 60(min) *60 (hover) *24(day)
     store: new MongoStore({
         db: 'datas',
         mongooseConnection: mongoose.connection
@@ -64,6 +62,16 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
+
+/*用户登陆身份验证*/
+app.use('/', function(req, res, next) {
+    if(req.session.user||req.originalUrl=='/'||req.originalUrl=='/login'||req.originalUrl=='/reg'){
+        next();
+    }else{
+        return res.render('login', {title: 'login',url:req.originalUrl});
+    }
+});
 
 /*用户使用层*/
 app.use('/', index);
@@ -73,6 +81,9 @@ app.use('/users', users);
 
 /*文章管理层*/
 app.use('/article', article);
+
+/*吃饭系统*/
+app.use('/meal', meal);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

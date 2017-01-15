@@ -1,4 +1,27 @@
-<%- include public/header.ejs %>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <style>
+        .disabled {
+            display: none;
+        }
+
+        .able {
+            display: block;
+        }
+    </style>
+    <script src="/javascripts/jquery-3.1.1.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+</head>
+<body class="container">
+<div class="col-md-12">
+    <h1><%= title %>
+        <small><a href="/">父系统</a></small>
+    </h1>
+</div>
 
 <ul class="col-md-12">
     <li><a href="/meal/add">下订单</a></li>

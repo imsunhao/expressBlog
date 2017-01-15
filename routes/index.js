@@ -50,7 +50,9 @@ router.post('/login',function (req,res,next) {
                 User.password = null;
                 delete User.password;
                 req.session.user = User;
-                return res.redirect('/');
+                if(req.body.url){
+                    return res.redirect(req.body.url);
+                }else return res.redirect('/');
             }else {
                 console.log('password erro！'+md5password);
                 return res.redirect('/login');
