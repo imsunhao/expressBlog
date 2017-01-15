@@ -18,8 +18,8 @@ router.get('/', function (req, res, next) {
         return res.render('error', {
             message: '吃饭系统',
             error: {
-                status:403,
-                stack:"您没有权限呢！"
+                status: 403,
+                stack: "您没有权限呢！"
             }
         });
     }
@@ -63,8 +63,12 @@ router.post('/add', function (req, res, next) {
         _sum: req.body._sum,
         people: people
     });
-    var bili = parseFloat((parseFloat(newMealOlder.sum) - parseFloat(newMealOlder._sum) + parseFloat(newMealOlder.other)) / (parseFloat(newMealOlder.sum) + parseFloat(newMealOlder.other)));
-    var otherPirce = (newMealOlder.other) / people.length;
+    var bili,otherPirce;
+    if(newMealOlder.sum!=0){
+        bili = parseFloat((parseFloat(newMealOlder.sum) - parseFloat(newMealOlder._sum) + parseFloat(newMealOlder.other)) / (parseFloat(newMealOlder.sum) + parseFloat(newMealOlder.other)));
+    }else bili=1;
+    if(newMealOlder.other!=0) otherPirce = (newMealOlder.other) / people.length;
+    else otherPirce = 0;
     newMealOlder.save(function (err, doc) {
         if (err) {
             console.log(err);
@@ -111,6 +115,38 @@ router.post('/addUser', function (req, res, next) {
     });
 });
 
+router.post('/editUser', function (req, res, next) {
+    MealUser.update({_id: req.body._id}, {
+        sum: parseFloat(req.body.sum)
+    }, function (err, user){
+        if (err) {
+            console.log(err);
+            return res.redirect('back');
+        }
+        console.log('用户加钱成功！');
+        var _sum=Math.abs(parseFloat(req.body.yue)-parseFloat(req.body.sum));
+        var newMealOlder = new MealOlder({
+            sum: 0,
+            other: 0,
+            _sum: _sum,
+            people: {
+                _id:req.body._id,
+                datials:"! 用户加钱",
+                sum:0,
+                yue:req.body.yue
+            }
+        });
+        newMealOlder.save(function (err, doc) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('用户详单添加成功！');
+                return res.json({url:'/meal/mealDetails/' + req.body._id});
+            }
+        });
+    });
+});
+
 router.get('/search', function (req, res, next) {
     MealUser.find({}, function (err, doc) {
         return res.render('meal/search', {
@@ -137,13 +173,31 @@ router.get('/searchOlder', function (req, res, next) {
 });
 
 router.get('/mealDetails/:_id', function (req, res, next) {
-    MealOlder.find({}, function (err, olders) {
-        return res.render('meal/mealDetials', {
-            title: "查看所有订单",
-            olders: olders,
-            id: req.params._id
+    if (req.params._id) {
+        MealUser.findOne({_id: req.params._id}, function (err, user) {
+            older(user);
         });
-    });
+    } else {
+        older();
+    }
+    function older(user) {
+        MealOlder.find({}, function (err, olders) {
+            if (user) {
+                return res.render('meal/mealDetials', {
+                    title: "欢迎：" + user.username,
+                    olders: olders,
+                    id: req.params._id,
+                    user: user
+                });
+            } else {
+                return res.render('meal/mealDetials', {
+                    title: "查看所有订单",
+                    olders: olders,
+                    id: req.params._id
+                });
+            }
+        });
+    }
 });
 
 module.exports = router;

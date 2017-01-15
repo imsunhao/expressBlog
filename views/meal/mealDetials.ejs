@@ -1,7 +1,35 @@
 <%- include public/header.ejs %>
-
-<table class="table table-striped">
-    <caption>查询结果</caption>
+<%if(typeof (user)!="undefined"){%>
+<div class="container">
+    <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">id</span>
+                    <input type="text" class="form-control" name="_id" disabled value="<%=user._id%>">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">总余额</span>
+                    <input type="text" class="form-control" disabled value="<%=parseFloat(user.sum).toFixed(2)%>">
+                    <span class="input-group-addon">元</span>
+                </div>
+            </div>
+</div>
+<div class="container" style="margin-top: 20px">
+        <div class="col-md-8">
+            <div class="input-group">
+                <span class="input-group-addon">增加余额</span>
+                <input type="number" class="form-control balaba" placeholder="添加余额" name="sum" value="<%user.sum%>">
+                <span class="input-group-addon">元</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-block submit">submit</button>
+        </div>
+</div>
+<%}%>
+<table class="col-md-12 table table-striped" style="margin-top: 20px">
+    <caption>最近账单</caption>
     <% if(olders.length > 0){ %>
     <tr>
         <th>订单编号(不是饿了吗的订单)</th>
@@ -22,7 +50,7 @@
                 people={};
     olders.forEach(function(older) {
         d = new Date(older.createTime);
-        var bili = parseFloat((parseFloat(older.sum)-parseFloat(older._sum)+parseFloat(older.other)) / (parseFloat(older.sum)+parseFloat(older.other)));
+        bili = parseFloat((parseFloat(older.sum)-parseFloat(older._sum)+parseFloat(older.other)) / (parseFloat(older.sum)+parseFloat(older.other)));
         otherPirce = (older.other) / older.people.length;
     for (var i = 0; i < older.people.length; i++) {
     if (older.people[i]._id == id) {
@@ -40,7 +68,11 @@
         <td><%= parseFloat(older._sum).toFixed(2) %></td>
         <td><%= people.datials %></td>
         <td><%= parseFloat(people.sum).toFixed(2) %></td>
-        <%var s = (parseFloat(people.sum) + parseFloat(otherPirce))*bili  %>
+        <%var s=0;
+            if(older.sum==0&&older.other==0){
+                s=parseFloat(-older._sum);
+            }else s= (parseFloat(people.sum) + parseFloat(otherPirce))*bili
+        %>
         <td><%= s.toFixed(2) %></td>
         <td><%= parseFloat(people.yue).toFixed(2) %></td>
         <td><%= (parseFloat(people.yue) - parseFloat(s)).toFixed(2) %></td>
@@ -56,5 +88,25 @@
     </tr>
     <% } %>
 </table>
-
+<script>
+    $(function () {
+        $('.submit').on("click", function (e) {
+                var sum=parseFloat($('.balaba').val())+<%=user.sum%>;
+            $.ajax({
+                type: "POST",
+                url: "/meal/editUser",
+                data: {
+                    sum: sum,
+                    _id: '<%=user._id%>',
+                    yue:<%=user.sum%>
+                },
+                success: function (data, status) {
+                    if (status == "success") {
+                        window.location.href = data.url;
+                    }
+                }
+            });
+        });
+    })
+</script>
 <%- include public/footer.ejs %>
