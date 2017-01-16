@@ -1,5 +1,30 @@
 <%- include public/header.ejs %>
 
+<ul class="col-md-12" id="list">
+    <% lists.forEach(function (list, index) { %>
+    <li>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="<%= list._id %>" data-yue="<%= list.sum %>">
+                <%= list.username %>
+            </label>
+        </div>
+        <div class="disabled">
+            <div class="input-group">
+                <span class="input-group-addon">详细</span>
+                <input type="text" class="form-control" placeholder="都买什么了?" name="<%= list._id %>-detial"
+                       data-id="<%= list._id %>">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">消费</span>
+                <input type="number" class="form-control" placeholder="花了多少钱" name="<%= list._id %>-sum"
+                       data-id="<%= list._id %>" value="0">
+                <span class="input-group-addon">元</span>
+            </div>
+        </div>
+    </li>
+    <% }) %>
+</ul>
 <div class="col-md-12">
     <div class="col-md-4">
         <div class="input-group">
@@ -11,84 +36,43 @@
     <div class="col-md-4">
         <div class="input-group">
             <span class="input-group-addon">总杂费</span>
-            <input type="number" class="form-control balaba" placeholder="杂费" name="other">
+            <input type="number" class="form-control balaba" placeholder="杂费" name="other" value="0">
             <span class="input-group-addon">元</span>
         </div>
     </div>
     <div class="col-md-4">
         <div class="input-group">
             <span class="input-group-addon">总优惠金额</span>
-            <input type="number" class="form-control balaba" placeholder="优惠金额" name="_sum">
+            <input type="number" class="form-control balaba" placeholder="优惠金额" name="_sum" value="0">
             <span class="input-group-addon">元</span>
         </div>
     </div>
-    <ul class="col-md-12" id="list">
-        <% lists.forEach(function (list, index) { %>
-        <li>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="<%= list._id %>" data-yue="<%=list.sum%>">
-                    <%= list.username %>
-                </label>
-            </div>
-            <div class="disabled">
-                <div class="input-group">
-                    <span class="input-group-addon">详细</span>
-                    <input type="text" class="form-control" placeholder="都买什么了?" name="<%= list._id %>-detial"
-                           data-id="<%= list._id %>">
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon">消费</span>
-                    <input type="number" class="form-control" placeholder="花了多少钱" name="<%= list._id %>-sum"
-                           data-id="<%= list._id %>">
-                    <span class="input-group-addon">元</span>
-                </div>
-            </div>
-        </li>
-        <% }) %>
-    </ul>
-    <div class="col-md-12" style="margin-top: 20px">
-        <button class="btn btn-block submit">submit</button>
-    </div>
+</div>
+<div class="col-md-12" style="margin-top: 20px">
+    <button class="btn btn-block submit">submit</button>
 </div>
 
 <script>
     $(function () {
         var $list = $("#list");
         var people = [];
+        var $balal = $('.balaba');
+        var sum = 0;
         $list.find("input[type='checkbox']").on("change", function () {
+            var p = $(this).parent().parent();
             if (this.checked) {
-                peopleControl(1, this.value,$(this).attr('data-yue'));
-                $(this).parent().parent().siblings().addClass('able');
+                peopleControl(1, this.value, $(this).attr('data-yue'));
+                p.siblings().addClass('able');
+                autoSeeSum(p.parent().find("input[type='number']"), 1);
             } else {
-                peopleControl(0, this.value,$(this).attr('data-yue'));
-                $(this).parent().parent().siblings().removeClass('able');
+                peopleControl(0, this.value, $(this).attr('data-yue'));
+                p.siblings().removeClass('able');
+                autoSeeSum(p.parent().find("input[type='number']"), 0);
             }
         });
         $list.find("input[type='number']").on("blur", function () {
             old($(this).attr('data-id'));
-        });
-        $('.submit').on("click", function (e) {
-            var $balal = $('.balaba');
-            var sum=0;
-            for(var i=0;i<people.length;i++){
-                sum+=parseFloat(people[i].sum);
-            }
-            $.ajax({
-                type: "POST",
-                url: "add",
-                data: {
-                    sum: sum,
-                    other: $balal.eq(1).val(),
-                    _sum: $balal.eq(2).val(),
-                    people: people
-                },
-                success: function (data, status) {
-                    if (status == "success") {
-                        window.location.href = data.url;
-                    }
-                }
-            });
+            autoSeeSum($(this), 1);
         });
         function peopleControl(boolean, id, yue) {
             var i = 0;
@@ -116,6 +100,37 @@
                 }
             }
         }
+
+        function autoSeeSum(t, flg) {
+            console.log(t.val());
+            autoSeeOlder();
+        }
+
+        function autoSeeOlder() {
+            sum = 0;
+            for (var i = 0; i < people.length; i++) {
+                sum += parseFloat(people[i].sum);
+            }
+            $balal.eq(0).val(sum);
+        }
+
+        $('.submit').on("click", function (e) {
+            $.ajax({
+                type: "POST",
+                url: "add",
+                data: {
+                    sum: sum,
+                    other: $balal.eq(1).val(),
+                    _sum: $balal.eq(2).val(),
+                    people: people
+                },
+                success: function (data, status) {
+                    if (status == "success") {
+                        window.location.href = data.url;
+                    }
+                }
+            });
+        });
     });
 </script>
 

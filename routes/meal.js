@@ -84,9 +84,7 @@ router.post('/add', function (req, res, next) {
             }, function (err, doc) {
                 if (err) {
                     console.log(err);
-                } else {
-                    console.log('用户余额更新成功！');
-                }
+                } else {}
             });
         });
     });

@@ -22,7 +22,7 @@
         <td><%= parseFloat(older._sum).toFixed(2) %></td>
         <td>
             <% older.people.forEach(function (people) { %>
-            <a style="float: left" href='/meal/mealDetails/<%= people._id %>?search=<%= older._id %>'><%= peoples[people._id] %></a>
+            <a style="float: left;margin: 0 5px;" href='/meal/mealDetails/<%= people._id %>?search=<%= older._id %>'><%= peoples[people._id] %></a>
             <% }); %>
         </td>
         <td><%= (d.getFullYear() + " 年 " + (d.getMonth() + 1) + " 月 " + d.getDate() + " 日") %></td>
