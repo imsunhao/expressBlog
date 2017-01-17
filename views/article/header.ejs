@@ -3,12 +3,8 @@
 <head>
     <title>05</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="/lib/prettify/prettify.css">
     <style type="text/css">
-        /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
-        /* Author: Nicolas Hery - http://nicolashery.com */
-        /* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
-        /* Source: https://github.com/nicolahery/markdownpad-github */
-
         /* RESET
         =============================================================================*/
 
@@ -298,5 +294,13 @@
         }
 
     </style>
+    <script src="/lib/jquery-3.1.1.min.js"></script>
+    <script src="/lib/prettify/prettify.js"></script>
+    <script>
+        $(function () {
+            $('code, pre').addClass('prettyprint');
+            prettyPrint();
+        });
+    </script>
 </head>
 <body>

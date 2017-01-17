@@ -21,10 +21,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/articleDetails/:_id', function (req, res, next) {
     Article.find({_id: req.params._id}, function (err, docs) {
-        return res.render('article/articleDetails',function (err,html) {
-            res.write(html+new Buffer(markdown.toHTML( docs[0]._doc.content,'Maruku')));
-            return res.end();
-        })
+        return res.render('article/articleDetails',{body:markdown.toHTML( docs[0]._doc.content,'Maruku')});
     });
 });
 
