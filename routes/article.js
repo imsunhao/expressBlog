@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 
-var model = require('../models/model');
+var model = require('../models/blog/model');
 
 var User = model.User;
 var Article = model.Article;

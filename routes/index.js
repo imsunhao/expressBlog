@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 //引入加密模块
 var crypto = require('crypto');
-var model = require('../models/model');
+var model = require('../models/blog/model');
 
 var User = model.User;
 var Article = model.Article;

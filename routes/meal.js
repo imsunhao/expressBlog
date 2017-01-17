@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Mealmodel = require('../models/Mealmodel');
+var Mealmodel = require('../models/Meal/model');
 
 var MealUser = Mealmodel.MealUser;
 var MealOlder = Mealmodel.MealOlder;
