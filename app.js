@@ -15,6 +15,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var article = require('./routes/article');
 var meal = require('./routes/meal');
+var haibinSystem = require('./routes/haibinSystem');
 
 var app = express();
 
@@ -84,6 +85,9 @@ app.use('/article', article);
 
 /*吃饭系统*/
 app.use('/meal', meal);
+
+/*海滨网络系统*/
+app.use('/haibinSystem', haibinSystem);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
