@@ -49,8 +49,6 @@ mongoose.connect('mongodb://'+mongoDBConfig.user+':'+mongoDBConfig.password+'@'+
 
 mongoose.connection.on('error', console.error.bind(console, '连接数据库失败'));
 
-
-
 /*session*/
 app.use(session({
     key: 'session',
@@ -63,7 +61,6 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
 
 /*用户登陆身份验证*/
 app.use('/', function(req, res, next) {
@@ -108,3 +105,26 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+
+// var supertest = require('supertest');
+// var should=require("should");
+// var request = supertest(app);
+//
+//
+//
+// describe('Article post', function () {
+//     it('Article Post sucessfully', function (done) {
+//         request.post('/haibinSystem/articleDetails')
+//             .send({
+//                 title: "海滨网络系统内部系统的登陆界面",
+//                 author: "imsunhao",
+//                 tag: "公告",
+//                 content: "完成海滨网络系统内部系统的登陆界面登陆功能，大家看看把账号名和密码发给我下，给你们注册下，不支持自己注册用户。功能还未完善，比如：session的使用，验证用户。登陆网址： http://imsunhao.com/haibin/index.html",
+//                 file: []
+//             })
+//             .end(function (err, res) {
+//                 should.not.exists(err);
+//                 done();
+//             });
+//     });
+// });

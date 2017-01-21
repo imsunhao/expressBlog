@@ -2,17 +2,12 @@ var express = require('express');
 var router = express.Router();
 
 
-var model = require('../models/blog/model');
+var model = require('../models/haibinSystem/model');
 
-var User = model.User;
 var Article = model.Article;
-
-
-var crypto = require('crypto');
 
 var markdown = require( "markdown" ).markdown;
 
-var secret='a12345678';
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -27,8 +22,18 @@ router.get('/articleDetails/:_id', function (req, res, next) {
     });
 });
 
-router.post('/articleDetails/:_id', function (req, res, next) {
-    console.log("修改文章")
+router.route('/articleDetails').post(function (req, res, next) {
+    var newArticle = new Article({
+        title: req.body.title,
+        author: req.body.author,
+        tag: req.body.tag,
+        content: req.body.content,
+        file: req.body.file
+    });
+    newArticle.save(function (err,doc) { 
+        assert.equal(null,err);
+        console.log("发布文章成功！");
+    });
 });
 
 module.exports = router;
