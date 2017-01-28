@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 
-var model = require('../models/haibinSystem/model');
+var model = require('../models/blog/model');
 
 var Article = model.Article;
 

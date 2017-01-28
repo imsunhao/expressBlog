@@ -20,9 +20,18 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/articleDetails/:_id', function (req, res, next) {
-    Article.find({_id: req.params._id}, function (err, docs) {
-        return res.render('article/articleDetails',{body:markdown.toHTML( docs[0]._doc.content,'Maruku')});
-    });
+    if(req.session.user.username=="imsunhao"||req.session.user.username=="张翰月"){
+        Article.find({_id: req.params._id}, function (err, docs) {
+            return res.render('article/articleDetails',{body:markdown.toHTML( docs[0]._doc.content,'Maruku')});
+        });
+    }else{
+        return res.render('error',{
+            message: '私人文章',
+            error: {
+                status: 403,
+                stack: "您没有权限呢！"
+            }})
+    }
 });
 
 router.post('/articleDetails/:_id', function (req, res, next) {

@@ -1,5 +1,15 @@
 <%- include public/header.ejs %>
 
+<div class="col-md-12">
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary  class">解决方案1 点餐</button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default class">解决方案2 平分</button>
+        </div>
+    </div>
+</div>
 <ul class="col-md-12" id="list">
     <% lists.forEach(function (list, index) { %>
     <li>
@@ -55,6 +65,7 @@
 <script>
     $(function () {
         var $list = $("#list");
+        var $btn=$('.class');
         var people = [];
         var $balal = $('.balaba');
         var sum = 0;
@@ -74,6 +85,12 @@
             old($(this).attr('data-id'));
             autoSeeSum($(this), 1);
         });
+        $btn.on('click',function () {
+            $btn.removeClass('btn-primary').addClass('btn-default');
+            $(this).addClass('btn-primary');
+        });
+
+
         function peopleControl(boolean, id, yue) {
             var i = 0;
             if (boolean) {
