@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/articleDetails/:_id', function (req, res, next) {
-    if(req.session.user.username=="imsunhao"||req.session.user.username=="张翰月"){
+    if(req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"){
         Article.find({_id: req.params._id}, function (err, docs) {
             return res.render('article/articleDetails',{body:markdown.toHTML( docs[0]._doc.content,'Maruku')});
         });
