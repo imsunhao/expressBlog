@@ -21,8 +21,13 @@ router.get('/', function (req, res, next) {
 
 router.get('/articleDetails/:_id', function (req, res, next) {
     if(req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"){
-        Article.find({_id: req.params._id}, function (err, docs) {
-            return res.render('article/articleDetails',{body:markdown.toHTML( docs[0]._doc.content,'Maruku')});
+        Article.find({_id: req.params._id}, function (err, arts) {
+            return res.render('article/articleDetails',{
+                title:arts[0].title,
+                createTime:arts[0].createTime,
+                author:arts[0].author,
+                content:markdown.toHTML(arts[0].content,'Maruku')
+            });
         });
     }else{
         return res.render('error',{

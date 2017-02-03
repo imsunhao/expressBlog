@@ -2,13 +2,17 @@
 <html lang="zh-cmn">
 <head>
     <!-- meta -->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="author" content="imsunhao"/>
     <meta name="description" content="孙颢的个人网志"/>
     <meta name="keywords" content=""/>
-    <title>markdown</title>
-    <link rel="stylesheet" href="/stylesheets/markdown.css">
+    <title><%= title %></title>
+    <% if(author == "张瀚月"){ %>
+    <link rel="stylesheet" href="/stylesheets/blog/markdown-pink.css">
+    <% }else{ %>
+    <link rel="stylesheet" href="/stylesheets/blog/markdown.css">
+    <% } %>
     <link rel="stylesheet" href="/lib/prettify/prettify.css">
     <script src="/lib/jquery-3.1.1.min.js"></script>
     <script src="/lib/prettify/prettify.js"></script>
