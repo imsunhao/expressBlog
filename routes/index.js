@@ -145,7 +145,7 @@ router.get('/search', function(req, res, next) {
     var query = req.query.title,
         title = new RegExp(query, 'i');
     Article
-        .find({title: title})
+        .find({title: title,author:req.session.user.username})
         .sort('-createTime')
         .exec(function(err, arts) {
             if(err) {
