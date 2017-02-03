@@ -11,6 +11,10 @@ var mongoDBConfig=require('./config/mongoBDConfig.json');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
+// var ua = require('universal-analytics');
+// var visitor = ua('UA-91300868-1');//谷歌统计
+
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var article = require('./routes/article');
@@ -85,6 +89,13 @@ app.use('/meal', meal);
 
 /*海滨网络系统*/
 app.use('/haibinSystem', haibinSystem);
+
+/*访问统计*/
+// app.get("/test", function(req, res) {
+//     visitor.pageview("/somepage", "测试页面", "https://luolei.org").send();
+//     visitor.event("事件类别", "事件行为", "事件标签", 42).send();
+//     res.redirect("http://this.is26.com");
+// });
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -18,7 +18,8 @@
     "morgan": "^1.7.0",
     "serve-favicon": "~2.3.0",
     "should": "^11.1.2",
-    "supertest": "^2.0.1"
+    "supertest": "^2.0.1",
+    "universal-analytics": "^0.4.8"
   },
   "devDependencies": {
     "supertest": "^2.0.1"
