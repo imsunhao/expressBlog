@@ -20,7 +20,7 @@ ul, ol {
   list-style-type: none;
 }
 body {
-  background: #92b3a2 url(/images/bg.jpg) repeat 0 0;
+  background: #92b3a2 url(/images/blog/bg.jpg) repeat 0 0;
   font-size: 14px;
   line-height: 1.5;
   font-family: Georgia, Hiragino Sans GB,\5b8b\4f53;
@@ -76,7 +76,7 @@ a         { color: #91736b; text-decoration: none; }
     vertical-align: middle;
     text-decoration: none;
     color: rgba(255, 255, 255, 0.9);
-    background: url(/images/logo.jpg) no-repeat -72px 0;
+    background: url(/images/blog/logo.jpg) no-repeat -72px 0;
     -webkit-transition: color 200ms ease-in-out;
     -moz-transition: color 200ms ease-in-out;
     -ms-transition: color 200ms ease-in-out;
@@ -160,7 +160,7 @@ a         { color: #91736b; text-decoration: none; }
   min-height: 600px;
   height: auto;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
-  background: #e3ded8 url(/images/cnt-top.jpg) repeat-x 0 0;
+  background: #e3ded8 url(/images/blog/cnt-top.jpg) repeat-x 0 0;
 
   .article {
     line-height: 1.6;
@@ -664,7 +664,7 @@ a         { color: #91736b; text-decoration: none; }
   padding: 20px 20px 40px 20px;
   margin-top: 26px;
   float: left;
-  background: #f2eeec url(/images/aside-bg.jpg) no-repeat 0px 0px;
+  background: #f2eeec url(/images/blog/aside-bg.jpg) no-repeat 0px 0px;
   width: 240px;
   min-height: 500px;
   height: auto;
