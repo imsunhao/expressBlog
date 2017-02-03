@@ -76,7 +76,7 @@ router.get('/reg', function (req, res, next) {
 router.post('/reg', function (req, res, next) {
     var username = req.body.email,
         password = req.body.password;
-        // passwordRepeat = req.body.passwordRepeat;
+    // passwordRepeat = req.body.passwordRepeat;
 
     //检查两次输入的密码是否一致
     // if (password != passwordRepeat) {
@@ -165,10 +165,21 @@ router.get('/edit/:_id', function(req, res, next) {
             console.log(err);
             return res.redirect('back');
         }
-        res.render('edit', {
-            title: '编辑',
-            art: art
-        });
+
+        if(req.session.user.username==art.author){
+            return res.render('edit', {
+                title: '编辑',
+                art: art
+            });
+        }else{
+            return res.render('error',{
+                message: '私人文章',
+                error: {
+                    status: 403,
+                    stack: "您没有修改权限呢！"
+                }})
+        }
+
     });
 });
 
