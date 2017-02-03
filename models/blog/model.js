@@ -18,6 +18,10 @@ var articleSchema = new Schema({
     author: String,
     tag: String,
     content: String,
+    public:{
+        type: Boolean,
+        default: false
+    },
     createTime: {
         type: Date,
         default: Date.now

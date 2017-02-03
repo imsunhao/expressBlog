@@ -188,8 +188,7 @@ router.post('/edit/:_id', function(req, res, next) {
     Article.update({_id: req.params._id},{
         title: req.body.title,
         tag: req.body.tag,
-        content: req.body.content,
-        createTime: Date.now()
+        content: req.body.content
     }, function(err, art) {
         if(err) {
             console.log(err);
