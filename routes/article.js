@@ -56,7 +56,7 @@ router.post('/articleDetails/:_id',function (req,res,next) {
                     message: '文章分享'+req.body.public,
                     error: {
                         status: 204,
-                        stack: "操作成功！\n网址为：\nhttp:60.205.215.6:8088/article/articleDetails/"+req.params._id
+                        stack: "操作成功！\n网址为：\nhttp://60.205.215.6:8088/article/articleDetails/"+req.params._id
                     }})
             });
         }else{
