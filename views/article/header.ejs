@@ -8,26 +8,66 @@
     <meta name="description" content="孙颢的个人网志"/>
     <meta name="keywords" content=""/>
     <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/blog/markdown.css">
     <% if(author == "张瀚月"){ %>
     <link rel="stylesheet" href="/stylesheets/blog/markdown-pink.css">
-    <% }else{ %>
-    <link rel="stylesheet" href="/stylesheets/blog/markdown.css">
-    <% } %>
+    <% }%>
     <link rel="stylesheet" href="/lib/prettify/prettify.css">
     <script src="/lib/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/marked@0.3.6"></script>
+    <script type="text/javascript" src="https://unpkg.com/lodash@4.16.0"></script>
     <script src="/lib/prettify/prettify.js"></script>
+    <script src="/lib/vue/vue.js"></script>
+    <script src="/lib/moment-with-locales.min.js"></script>
     <script>
         $(function () {
             $('code, pre').addClass('prettyprint');
             prettyPrint();
+            moment.lang('zh-cn');
+//            Vue.filter('testFilter',function (test) {
+//                return moment(test,'llll');
+//            });
+
+            var time=0;
+
+            if(moment('<%=createTime%>','llll').isValid()){
+                time='<%=createTime%>';
+            }else{
+                time=moment('<%=createTime%>').format('llll')
+            }
+
+            var app=new Vue({
+                el: '#editor',
+                data: {
+                    input: '',
+                    author:'<%=author%>',
+                    title:'<%=title%>',
+                    createTime:time,
+                    test:''
+                },
+                computed: {
+                    compiledMarkdown: function () {
+                        return marked(this.input, { sanitize: true })
+                    }
+                },
+                methods: {
+                    update: _.debounce(function (e) {
+                        this.input = e.target.value
+                    }, 300)
+                }
+            })
         });
     </script>
 </head>
 <body>
-<div class="contain fn-clear">
-    <div class="container fn-clear">
+<div id="editor">
+    <div class="container">
         <div class="main">
-            <div class="article article-post">
+            <div class="article">
+                <h1>{{title}}</h1>
+                <h6>author:{{author}}</h6>
+                <h6>createTime:{{createTime}}</h6>
+                <div v-html="compiledMarkdown"></div>
 
 
 
