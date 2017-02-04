@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <% if(user) { %>
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="/post">发表</a></li>
+                <li><a href="/article/post">发表</a></li>
             </ul>
             <% } %>
             <ul class="nav navbar-nav navbar-right">
@@ -38,7 +38,7 @@
                 </ul>
                 <% } %>
             </ul>
-            <form class="navbar-form navbar-right" role="search" action='/search' method="get">
+            <form class="navbar-form navbar-right" role="search" action='/article/search' method="get">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search" name="title">
                 </div>
