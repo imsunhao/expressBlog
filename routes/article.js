@@ -1,12 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-
 var model = require('../models/blog/model');
 
 var User = model.User;
 var Article = model.Article;
-
 
 var crypto = require('crypto');
 
@@ -28,7 +26,8 @@ router.get('/articleDetails/:_id', function (req, res, next) {
                 author:arts[0].author,
                 public:arts[0].public,
                 sessionUser:req.session.user.username,
-                content:markdown.toHTML(arts[0].content,'Maruku')
+                content:markdown.toHTML(arts[0].content,'Maruku'),
+                input:false
             });
         }else{
             return res.render('error',{
@@ -121,8 +120,14 @@ router.get('/edit/:_id', function(req, res, next) {
 
         if(req.session.user.username==art.author){
             return res.render('article/edit', {
-                title: '编辑',
-                art: art
+                title:art.title,
+                tag:art.tag,
+                createTime:art.createTime,
+                author:art.author,
+                public:art.public,
+                sessionUser:req.session.user.username,
+                content:false,
+                input:art.content
             });
         }else{
             return res.render('error',{
@@ -141,6 +146,7 @@ router.post('/edit/:_id', function(req, res, next) {
     Article.update({_id: req.params._id},{
         title: req.body.title,
         tag: req.body.tag,
+        createTime:req.body.createTime,
         content: req.body.content
     }, function(err, art) {
         if(err) {
