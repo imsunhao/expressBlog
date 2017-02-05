@@ -1,9 +1,37 @@
 <%- include header.ejs %>
 
-<%if(!content){%>
-<div v-html="compiledMarkdown"></div>
-<%}else{%>
+<script>
+    $(function () {
+        $('code, pre').addClass('prettyprint');
+        prettyPrint();
+        moment.locale('zh-cn');
+        var time = 0;
+        if (moment('<%= createTime %>', 'YYYY年MM月DD日 HH时mm分ss秒').isValid()) {
+            time = '<%= createTime %>';
+        } else {
+            time = moment('<%= createTime %>').format('YYYY年MM月DD日 HH时mm分ss秒')
+        }
+        var app = new Vue({
+            el: '#editor',
+            data: {
+                tag:'<%=tag%>',
+                author: '<%= author %>',
+                title: '<%= title %>',
+                createTime: time,
+                isPublic:'<%=public%>'
+            }
+        })
+    });
+</script>
+</head>
+<body>
+<div id="editor">
+    <div class="container">
+        <div class="main">
+            <div class="article">
+                <h1>{{title}}</h1>
+                <h6>author:{{author}}</h6>
+                <h6>createTime:{{createTime}}</h6>
 <%-content%>
-<%}%>
 
 <%- include footer.ejs %>

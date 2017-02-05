@@ -3,7 +3,7 @@
     <a class="next" href="/tech/pandoc.html" rel="bookmark">未完成&nbsp;&raquo;</a>
 </nav>
 
-<% if(sessionUser == author && content){ %>
+<% if(sessionUser == author && typeof(content)!="undefined"){ %>
 <form action="#" method="post">
     <p>
         <input type="checkbox" value='1' name="public">分享文章

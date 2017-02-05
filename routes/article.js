@@ -24,10 +24,10 @@ router.get('/articleDetails/:_id', function (req, res, next) {
                 title:arts[0].title,
                 createTime:arts[0].createTime,
                 author:arts[0].author,
+                tag:arts[0].tag,
                 public:arts[0].public,
                 sessionUser:req.session.user.username,
-                content:markdown.toHTML(arts[0].content,'Maruku'),
-                input:false
+                content:markdown.toHTML(arts[0].content,'Maruku')
             });
         }else{
             return res.render('error',{
@@ -70,7 +70,9 @@ router.post('/articleDetails/:_id',function (req,res,next) {
 });
 
 router.get('/post', function (req, res, next) {
-    res.render('article/post', {title: 'login'});
+    res.render('article/post', {title: '发表新的文章',
+        author: req.session.user.username,
+        sessionUser:req.session.user.username});
 });
 
 router.post('/post', function (req, res, next) {
@@ -78,12 +80,12 @@ router.post('/post', function (req, res, next) {
         title: req.body.title,
         author: req.session.user.username,
         tag: req.body.tag,
+        createTime: req.body.createTime,
         content: req.body.content
     });
 
     data.save(function (err, doc) {
         if (err) {
-            req.flash('error', err);
             return res.redirect('/article/post');
         }
         console.log('文章发表成功！');
@@ -126,7 +128,6 @@ router.get('/edit/:_id', function(req, res, next) {
                 author:art.author,
                 public:art.public,
                 sessionUser:req.session.user.username,
-                content:false,
                 input:art.content
             });
         }else{
