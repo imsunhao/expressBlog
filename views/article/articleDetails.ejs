@@ -14,24 +14,25 @@
         var app = new Vue({
             el: '#editor',
             data: {
-                tag:'<%=tag%>',
+                tag: '<%= tag %>',
                 author: '<%= author %>',
                 title: '<%= title %>',
                 createTime: time,
-                isPublic:'<%=public%>'
+                isPublic: '<%= public %>'
             }
         })
     });
 </script>
 </head>
 <body>
-<div id="editor">
-    <div class="container">
-        <div class="main">
-            <div class="article">
+<div class="container">
+    <div class="main">
+        <div class="article">
+            <div id="editor">
                 <h1>{{title}}</h1>
                 <h6>author:{{author}}</h6>
                 <h6>createTime:{{createTime}}</h6>
-<%-content%>
+            </div>
+            <%- content %>
 
 <%- include footer.ejs %>
