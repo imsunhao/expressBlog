@@ -10,7 +10,7 @@
         body{background-color: #fff}
         .contain {
             position: relative;
-            margin: 155px auto;
+            margin: 250px auto;
             width: 200px;
         }
 
@@ -153,7 +153,6 @@
                 ry: 10px;
             }
         }
-
         @keyframes jump {
             40% {
                 -webkit-transform: translateY(20px) scale(1.3);
@@ -192,6 +191,12 @@
                 -webkit-transform: translateY(5px) scale(1.3);
                 transform: translateY(5px) scale(1.3);
             }
+        }
+
+        .inner{
+            position: absolute;
+            z-index: 1;
+            top:50px;
         }
     </style>
 </head>
