@@ -1,7 +1,7 @@
 <form action="/post" method="post">
-    <table>
+    <table border="1" align="center">
         <caption>查询结构</caption>
-        <tr><th>用户名</th><th>已经发布的文章数量</th><th>修改密码</th></tr>
-        <tr><td><%=art.user%></td><td><%=art.length%></td><td><a href="/users/changePw">修改密码</a></td></tr>
+        <tr><th>用户名</th><th>已经发布的文章数量</th><th>修改密码</th><th>管理用户·个性签名</th></tr>
+        <tr><td><%=art.user%></td><td><%=art.length%></td><td><a href="/users/management/password">修改密码</a></td><td><a href="/users/management/signature">个性签名</a></td></tr>
     </table>
 </form>

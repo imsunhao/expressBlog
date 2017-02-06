@@ -167,8 +167,8 @@ app.set('view engine', 'ejs');                                     //模板为ej
  /*
  */
 
-// mongoose.connect('mongodb://'+mongoDBConfig.user+':'+mongoDBConfig.password+'@'+mongoDBConfig.host+':'+mongoDBConfig.port+'/'+mongoDBConfig.database+'?authSource='+mongoDBConfig.authSource, {native_parser: true});//网路数据库
-mongoose.connect('mongodb://localhost:18088/datas');         //本地测试数据库链接
+mongoose.connect('mongodb://'+mongoDBConfig.user+':'+mongoDBConfig.password+'@'+mongoDBConfig.host+':'+mongoDBConfig.port+'/'+mongoDBConfig.database+'?authSource='+mongoDBConfig.authSource, {native_parser: true});//网路数据库
+// mongoose.connect('mongodb://localhost:18088/datas');         //本地测试数据库链接
 
 mongoose.connection.on('error', console.error.bind(console, '连接数据库失败'));
 /*
