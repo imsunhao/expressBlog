@@ -18,16 +18,20 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/read/:_id', function (req, res, next) {
-    Article.find({_id: req.params._id}, function (err, arts) {
-        if(arts[0].public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"){
-            return res.render('article/read',{
-                title:arts[0].title,
-                createTime:arts[0].createTime,
-                author:arts[0].author,
-                tag:arts[0].tag,
-                public:arts[0].public,
-                sessionUser:req.session.user.username,
-                content:markdown.toHTML(arts[0].content,'Maruku')
+    Article.findOne({_id: req.params._id}, function (err, art) {
+        if(art.public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"){
+            User.findOne({username:art.author},function (err,user) {
+                return res.render('article/read',{
+                    title:art.title,
+                    createTime:art.createTime,
+                    author:art.author,
+                    tag:art.tag,
+                    public:art.public,
+                    portrait:'/images/user/imsunhao1.jpg',
+                    signature:user.signature,
+                    sessionUser:req.session.user.username,
+                    content:markdown.toHTML(art.content,'Maruku')
+                });
             });
         }else{
             return res.render('error',{
@@ -41,8 +45,8 @@ router.get('/read/:_id', function (req, res, next) {
 });
 
 router.post('/read/:_id',function (req,res,next) {
-    Article.find({_id: req.params._id}, function (err, arts) {
-        if(arts[0].public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"){
+    Article.findOne({_id: req.params._id}, function (err, art) {
+        if(art.public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"){
             Article.update({_id: req.params._id},{
                 public:req.body.public
             }, function(err, art) {

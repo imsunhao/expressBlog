@@ -11,16 +11,23 @@
         } else {
             time = moment('<%= createTime %>').format('YYYY年MM月DD日 HH时mm分ss秒')
         }
-        var app = new Vue({
-            el: '#editor',
+        var header = new Vue({
+            el: '#contentHeader',
             data: {
                 tag: '<%= tag %>',
-                author: '<%= author %>',
-                title: '<%= title %>',
-                createTime: time,
-                isPublic: '<%= public %>'
+                title: '<%= title %>'
             }
-        })
+        });
+        var footer = new Vue({
+            el: '#contentFooter',
+            data: {
+                author: '<%= author %>',
+                createTime: time,
+                portrait:'<%-portrait%>',
+                isPublic: '<%= public %>',
+                signature:'<%=signature%>'
+            }
+        });
     });
 </script>
 </head>
@@ -28,12 +35,18 @@
 <div class="container">
     <div class="main">
         <div class="article">
-            <div id="editor">
+            <div id="contentHeader">
                 <h1>{{title}}</h1>
-                <h6>author:{{author}}</h6>
-                <h6>createTime:{{createTime}}</h6>
             </div>
             <%- content %>
+            <div id="contentFooter">
+                <div class="portrait"><img :src="portrait" :alt="author"></div>
+                <div class="introduction">
+                    <h5>{{author}}</h5>
+                    <h6>{{signature}}</h6>
+                    <p>{{createTime}}</p>
+                </div>
+            </div>
             <nav class="article-previous clear">
                 <a class="prev" href="/psy/open-science-toolbox.html" rel="bookmark">&laquo;&nbsp;未完成</a>
                 <a class="next" href="/tech/pandoc.html" rel="bookmark">未完成&nbsp;&raquo;</a>
