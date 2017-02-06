@@ -3,7 +3,7 @@
         <caption>查询结构</caption>
         <tr><th>title</th><th>tag</th><th>createTime</th><th>author</th><th>编辑</th></tr>
         <% arts.forEach(function(art) { %>
-        <tr><td><a href="/article/articleDetails/<%=art._id%>"><%=art.title%></a></td><td><%=art.tag%></td><td><%=art.createTime%></td><td><%=art.author%></td><td>
+        <tr><td><a href="/article/read/<%=art._id%>"><%=art.title%></a></td><td><%=art.tag%></td><td><%=art.createTime%></td><td><%=art.author%></td><td>
                 <a href="/article/edit/<%=art._id%>">编辑</a></td></tr>
         <% }) %>
     </table>

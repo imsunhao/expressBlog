@@ -1,4 +1,4 @@
-<%- include header.ejs %>
+<%- include public/header.ejs %>
 
 <script>
     $(function () {
@@ -13,7 +13,7 @@
             el: '#editor',
             data: {
                 input: $('#content').eq(0).val(),
-                tag:'<%=tag%>',
+                tag: '<%= tag %>',
                 author: '<%= author %>',
                 title: '<%= title %>',
                 createTime: time
@@ -29,8 +29,8 @@
                     prettyPrint();
                     this.input = e.target.value
                 }, 300),
-                submit:function (e) {
-                    $('#createTime').val(new Date(moment(this.createTime,'YYYY年MM月DD日 HH时mm分ss秒')));
+                submit: function (e) {
+                    $('#createTime').val(new Date(moment(this.createTime, 'YYYY年MM月DD日 HH时mm分ss秒')));
                     $('#form')[0].submit();
                 }
             }
@@ -42,11 +42,14 @@
 <div id="editor">
     <div class="container">
         <form id="form" class="main edit" action="#" method="post">
-            <p><label for="title">标题：</label><input id="title" name="title" type="text" v-model="title" placeholder="标题" autocomplete="off"></p>
-            <p><label for="author">作者：</label><input id="author" type="text" name="author" v-model="author" placeholder="作者" autocomplete="off" disabled></p>
-            <p><label for="createTime">日期：</label><input id="createTime" name="createTime" type="text"  v-model="createTime" autocomplete="off"></p>
-            <p><label for="tag">标签：</label><input id="tag" name="tag" type="text"  v-model="tag"></p>
-            <textarea id="content" :value="input" @input="update" name="content"><%=input%></textarea>
+            <p><label for="title">标题：</label><input id="title" name="title" type="text" v-model="title" placeholder="标题"
+                                                    autocomplete="off"></p>
+            <p><label for="author">作者：</label><input id="author" type="text" name="author" v-model="author"
+                                                     placeholder="作者" autocomplete="off" disabled></p>
+            <p><label for="createTime">日期：</label><input id="createTime" name="createTime" type="text"
+                                                         v-model="createTime" autocomplete="off"></p>
+            <p><label for="tag">标签：</label><input id="tag" name="tag" type="text" v-model="tag"></p>
+            <textarea id="content" :value="input" @input="update" name="content"><%= input %></textarea>
             <p class="clear"><a href="#">删除本篇文章</a><a class="button" @click="submit">保存本篇文章</a></p>
         </form>
         <div class="main">
@@ -54,6 +57,27 @@
                 <h1>{{title}}</h1>
                 <h6>author:{{author}}</h6>
                 <h6>createTime:{{createTime}}</h6>
-<div v-html="compiledMarkdown"></div>
+                <div v-html="compiledMarkdown"></div>
+                <nav class="article-previous clear">
+                    <a class="prev" href="/psy/open-science-toolbox.html" rel="bookmark">&laquo;&nbsp;未完成</a>
+                    <a class="next" href="/tech/pandoc.html" rel="bookmark">未完成&nbsp;&raquo;</a>
+                </nav>
 
-<%- include footer.ejs %>
+                <% if(sessionUser == author && typeof(content) != "undefined"){ %>
+                <form action="#" method="post">
+                    <p>
+                        <input type="checkbox" value='1' name="public">分享文章
+                    </p>
+                    <p>
+                        <button>提交</button>
+                    </p>
+                </form>
+                <% } %>
+                <div class="comment">
+                    <div id="disqus_thread"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <%- include public/footer.ejs %>

@@ -1,4 +1,4 @@
-<%- include header.ejs %>
+<%- include public/header.ejs %>
 
 <script>
     $(function () {
@@ -34,5 +34,25 @@
                 <h6>createTime:{{createTime}}</h6>
             </div>
             <%- content %>
+            <nav class="article-previous clear">
+                <a class="prev" href="/psy/open-science-toolbox.html" rel="bookmark">&laquo;&nbsp;未完成</a>
+                <a class="next" href="/tech/pandoc.html" rel="bookmark">未完成&nbsp;&raquo;</a>
+            </nav>
 
-<%- include footer.ejs %>
+            <% if(sessionUser == author && typeof(content)!="undefined"){ %>
+            <form action="#" method="post">
+                <p>
+                    <input type="checkbox" value='1' name="public">分享文章
+                </p>
+                <p>
+                    <button>提交</button>
+                </p>
+            </form>
+            <% } %>
+            <div class="comment">
+                <div id="disqus_thread"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include public/footer.ejs %>

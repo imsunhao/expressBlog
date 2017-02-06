@@ -17,10 +17,10 @@ router.get('/', function (req, res, next) {
     console.log("art");
 });
 
-router.get('/articleDetails/:_id', function (req, res, next) {
+router.get('/read/:_id', function (req, res, next) {
     Article.find({_id: req.params._id}, function (err, arts) {
         if(arts[0].public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"){
-            return res.render('article/articleDetails',{
+            return res.render('article/read',{
                 title:arts[0].title,
                 createTime:arts[0].createTime,
                 author:arts[0].author,
@@ -40,7 +40,7 @@ router.get('/articleDetails/:_id', function (req, res, next) {
     });
 });
 
-router.post('/articleDetails/:_id',function (req,res,next) {
+router.post('/read/:_id',function (req,res,next) {
     Article.find({_id: req.params._id}, function (err, arts) {
         if(arts[0].public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"){
             Article.update({_id: req.params._id},{
@@ -55,7 +55,7 @@ router.post('/articleDetails/:_id',function (req,res,next) {
                     message: '文章分享'+req.body.public,
                     error: {
                         status: 204,
-                        stack: "操作成功！\n网址为：\nhttp://60.205.215.6:8088/article/articleDetails/"+req.params._id
+                        stack: "操作成功！\n网址为：\nhttp://60.205.215.6:8088/article/read/"+req.params._id
                     }})
             });
         }else{

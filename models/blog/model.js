@@ -5,6 +5,10 @@ var userSchema = new Schema({
     username: String,
     password: String,
     email: String,
+    signature:{
+        type: String,
+        default: ''
+    },
     createTime: {
         type: Date,
         default: Date.now
