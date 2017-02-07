@@ -50,7 +50,7 @@
                                                          v-model="createTime" autocomplete="off"></p>
             <p><label for="tag">标签：</label><input id="tag" name="tag" type="text" v-model="tag"></p>
             <textarea id="content" :value="input" @input="update" name="content"><%= input %></textarea>
-            <p class="clear"><a href="#">删除本篇文章</a><a class="button" @click="submit">保存本篇文章</a></p>
+            <p class="clear"><a href="/article/remove/<%=_id%>">删除本篇文章</a><a class="button" @click="submit">保存本篇文章</a></p>
         </form>
         <div class="main">
             <div class="article">

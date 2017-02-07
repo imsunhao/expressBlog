@@ -1,7 +1,24 @@
-<form action="/post" method="post">
-    <table border="1" align="center">
-        <caption>查询结构</caption>
-        <tr><th>用户名</th><th>已经发布的文章数量</th><th>修改密码</th><th>管理用户·个性签名</th></tr>
-        <tr><td><%=art.user%></td><td><%=art.length%></td><td><a href="/users/management/password">修改密码</a></td><td><a href="/users/management/signature">个性签名</a></td></tr>
-    </table>
-</form>
+<style>
+</style>
+<table border="1" align="center">
+    <caption>查询结构</caption>
+    <th>头像</th>
+    <th>用户名</th>
+    <th>性别</th>
+    <th>已经发布的文章数量</th>
+    <th>个性签名</th>
+    <th>管理</th>
+    </tr>
+    <tr>
+        <td><img src="<%-user.portrait%>" alt=""></td>
+        <td><%= user.username %></td>
+        <%if(user.sex){%>
+        <td>男</td>
+        <%}else{%>
+        <td>女</td>
+        <%}%>
+        <td><%= arts.length %></td>
+        <td><%= user.signature %></td>
+        <td><a href="/users/management">管理</a></td>
+    </tr>
+</table>

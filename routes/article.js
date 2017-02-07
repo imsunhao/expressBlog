@@ -21,13 +21,19 @@ router.get('/read/:_id', function (req, res, next) {
     Article.findOne({_id: req.params._id}, function (err, art) {
         if(art.public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"||art.public||req.session.user.username=="aaa"){
             User.findOne({username:art.author},function (err,user) {
+                var portrait=user.portrait;
+                if(portrait==''||typeof (portrait)=="undefined"){
+                    if(user.sex)portrait='/images/user/man.jpg';
+                    else portrait='/images/user/woman.jpg';
+                }
+
                 return res.render('article/read',{
                     title:art.title,
                     createTime:art.createTime,
                     author:art.author,
                     tag:art.tag,
                     public:art.public,
-                    portrait:'/images/user/imsunhao1.jpg',
+                    portrait:portrait,
                     signature:user.signature,
                     sessionUser:req.session.user.username,
                     content:markdown.toHTML(art.content,'Maruku')
@@ -126,6 +132,7 @@ router.get('/edit/:_id', function(req, res, next) {
 
         if(req.session.user.username==art.author){
             return res.render('article/edit', {
+                _id:req.params._id,
                 title:art.title,
                 tag:art.tag,
                 createTime:art.createTime,
@@ -171,7 +178,7 @@ router.get('/remove/:_id', function (req, res, next) {
         } else {
             console.log('文章删除成功！');
         }
-        return res.redirect('back');
+        return res.redirect('/');
     })
 });
 

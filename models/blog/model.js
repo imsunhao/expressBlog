@@ -5,7 +5,15 @@ var userSchema = new Schema({
     username: String,
     password: String,
     email: String,
+    sex:{
+        type: Boolean,
+        default: true
+    },
     signature:{
+        type: String,
+        default: ''
+    },
+    portrait:{
         type: String,
         default: ''
     },
