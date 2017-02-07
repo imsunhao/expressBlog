@@ -19,7 +19,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/read/:_id', function (req, res, next) {
     Article.findOne({_id: req.params._id}, function (err, art) {
-        if(art.public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"){
+        if(art.public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"||art.public||req.session.user.username=="aaa"){
             User.findOne({username:art.author},function (err,user) {
                 return res.render('article/read',{
                     title:art.title,
