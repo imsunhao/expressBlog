@@ -1,0 +1,57 @@
+@import "compass";
+#contentFooter{
+  padding-top: 30px;
+  position: relative;
+  @include clearfix();
+  .portrait{
+    width: 100px;
+    height: 100px;
+    font-size: 0;
+    position: absolute;
+    left: 20px;
+    top:50px;
+    img{
+      border-radius: 50%;
+      border: 1px solid #eee;
+    }
+  }
+  .introduction{
+    width: 60%;
+    padding-left: 140px;
+    h5{
+      font-size: 18px;
+      color: #555;
+      margin-left: -8px;
+    }
+    h6{
+      font-size: 14px;
+      color: #777;
+    }
+    p{
+      color: #aaa;
+      font-size: 12px;
+    }
+  }
+}
+@media  screen and (max-width: 430px) {
+  #contentFooter{
+    .portrait{
+      position: static;
+      width: auto;
+      height: auto;
+      text-align: center;
+      img{
+        width: 140px;
+      }
+    }
+    .introduction{
+      h5{
+        margin-left: 0;
+      }
+      width: 100%;
+      padding-left: 0;
+      text-align: center;
+    }
+
+  }
+}

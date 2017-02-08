@@ -1,0 +1,34 @@
+body {
+  background: #f8aef9 url(/images/blog/schema-pink/bg.jpg) repeat 0 0;
+}
+.main {
+  background: url(/images/blog/schema-pink/bg.jpg);
+  box-shadow: none;
+  .article {
+    blockquote:after {
+      background: #f8aef9;
+      background: -moz-linear-gradient(0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: -webkit-linear-gradient(0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: -o-linear-gradient(0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: -ms-linear-gradient(to 0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: linear-gradient(to 0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+    }
+    table:after {
+      background: #f8aef9;
+      background: -moz-linear-gradient(0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: -webkit-linear-gradient(0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: -o-linear-gradient(0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: -ms-linear-gradient(to 0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: linear-gradient(to 0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+    }
+
+    .highlight pre:after {
+      background: #f8aef9;
+      background: -moz-linear-gradient(0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: -webkit-linear-gradient(0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: -o-linear-gradient(0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: -ms-linear-gradient(to 0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+      background: linear-gradient(to 0deg, #f8aef9 0%, #f8aef9 90%, #BA84BB 100%);
+    }
+  }
+}
