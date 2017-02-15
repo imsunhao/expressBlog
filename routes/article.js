@@ -52,7 +52,7 @@ router.get('/read/:_id', function (req, res, next) {
 
 router.post('/read/:_id',function (req,res,next) {
     Article.findOne({_id: req.params._id}, function (err, art) {
-        if(art.public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"){
+        if(art.public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"||art.public||req.session.user.username=="aaa"){
             Article.update({_id: req.params._id},{
                 public:req.body.public
             }, function(err, art) {
@@ -62,7 +62,7 @@ router.post('/read/:_id',function (req,res,next) {
                 }
                 console.log('文章分享！'+req.body.public);
                 return res.render('error',{
-                    message: '文章分享'+req.body.public,
+                    message: '文章分享',
                     error: {
                         status: 204,
                         stack: "操作成功！\n网址为：\nhttp://60.205.215.6:8088/article/read/"+req.params._id
