@@ -19,7 +19,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/read/:_id', function (req, res, next) {
     Article.findOne({_id: req.params._id}, function (err, art) {
-        if(art.public||req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"||art.public||req.session.user.username=="aaa"){
+        if(art.public){
             User.findOne({username:art.author},function (err,user) {
                 var portrait=user.portrait;
                 if(portrait==''||typeof (portrait)=="undefined"){
@@ -35,17 +35,49 @@ router.get('/read/:_id', function (req, res, next) {
                     public:art.public,
                     portrait:portrait,
                     signature:user.signature,
-                    sessionUser:req.session.user.username,
+                    sessionUser:"游客",
                     content:markdown.toHTML(art.content,'Maruku')
                 });
             });
         }else{
-            return res.render('error',{
-                message: '私人文章',
-                error: {
-                    status: 403,
-                    stack: "您没有权限呢！"
-                }})
+            if(req.session.user){
+                if(req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"||art.public||req.session.user.username=="aaa"){
+                    User.findOne({username:art.author},function (err,user) {
+                        var portrait=user.portrait;
+                        if(portrait==''||typeof (portrait)=="undefined"){
+                            if(user.sex)portrait='/images/user/man.jpg';
+                            else portrait='/images/user/woman.jpg';
+                        }
+
+                        return res.render('article/read',{
+                            title:art.title,
+                            createTime:art.createTime,
+                            author:art.author,
+                            tag:art.tag,
+                            public:art.public,
+                            portrait:portrait,
+                            signature:user.signature,
+                            sessionUser:req.session.user.username,
+                            content:markdown.toHTML(art.content,'Maruku')
+                        });
+                    });
+                }else{
+                    return res.render('error',{
+                        message: '私人文章',
+                        error: {
+                            status: 403,
+                            stack: "您没有权限呢！"
+                        }})
+                }
+            }else{
+                return res.render('error',{
+                    message: '私人文章',
+                    error: {
+                        status: 403,
+                        stack: "您没有权限呢！"
+                    }})
+            }
+
         }
     });
 });

@@ -207,7 +207,7 @@ app.use(session({
 
 /*用户登陆身份验证*/
 app.use('/', function(req, res, next) {
-    if(req.session.user||req.originalUrl=='/'||req.originalUrl=='/login'||req.originalUrl=='/reg'){
+    if(req.originalUrl.match(/\/article\/read\/.*/)||req.session.user||req.originalUrl=='/'||req.originalUrl=='/login'||req.originalUrl=='/reg'){
         next();
     }else{
         return res.render('login', {title: 'login',url:req.originalUrl});
