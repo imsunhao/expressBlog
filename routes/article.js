@@ -41,7 +41,7 @@ router.get('/read/:_id', function (req, res, next) {
             });
         }else{
             if(req.session.user){
-                if(req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"||art.public||req.session.user.username=="aaa"){
+                if(req.session.user.username=="imsunhao"||req.session.user.username=="张瀚月"||req.session.user.username==art.author){
                     User.findOne({username:art.author},function (err,user) {
                         var portrait=user.portrait;
                         if(portrait==''||typeof (portrait)=="undefined"){
